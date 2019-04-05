@@ -1,0 +1,22 @@
+import kha.Image;
+import kha.graphics2.Graphics;
+
+class Background {
+	public var image : Image;
+
+	public function new(image:Image, screenWidth:Int, screenHeight:Int) {
+		this.image = image;
+	}
+
+	public function draw(g:Graphics, width, height) {
+		var cols = Math.ceil(width / image.width);
+		var rows = Math.ceil(height / image.height);
+		//var origin = worldToScreen(new B2Vec2());
+		//var xStart = origin.x % image.width;
+		//var yStart = origin.y % image.height;
+		g.color = 0xffffffff;
+		for (i in -1...rows) for (j in 0...cols) {
+			g.drawImage(image, j * image.width, i * image.height);
+		}
+	}
+}
