@@ -1,10 +1,13 @@
 import kha.input.Mouse;
 import Utils.clamp;
+import kha.math.FastMatrix3;
+import kha.math.FastVector2;
 
 class Screen {
-  public var position(default, null) = new Vec2(0, 0);
+  public var position(default, null) = new FastVector2(0, 0);
   var screenHeight : Int;
   var worldHeight : Int;
+  public var matrix(get, never) : FastMatrix3;
   
   public function new(screenHeight : Int, worldHeight: Int) {
     this.screenHeight = screenHeight;
@@ -19,5 +22,9 @@ class Screen {
     position.y += delta*50;
     position.y = clamp(position.y, 0, worldHeight - screenHeight);
     trace(position.y);
+  }
+
+  function get_matrix() {
+    return FastMatrix3.translation(position.x, position.y);
   }
 }

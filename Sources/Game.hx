@@ -21,7 +21,6 @@ class Game {
 	}
 
 	public function update() : Void {
-
 	}
 
 	public function draw(frames:Array<Framebuffer>) : Void {
@@ -33,9 +32,11 @@ class Game {
 
     var g = frameBuffer.g2;
     g.begin();
+		g.pushTransformation(g.transformation.multmat(screen.matrix));
     //background.draw(g, width, height);
     //scene.draw(g, worldToScreen);
     //menu.draw(g, width, height);
+		g.popTransformation();
     g.end();
 	}
 
