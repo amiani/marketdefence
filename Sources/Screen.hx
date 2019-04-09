@@ -21,7 +21,6 @@ class Screen {
   function handleWheel(delta:Int):Void {
     position.y += delta*50;
     position.y = clamp(position.y, 0, worldHeight - screenHeight);
-    trace(position.y);
   }
 
   function get_matrix() {

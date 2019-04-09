@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<module>
+	<resources>
+		<resource path='../Assets/ui/css' />
+	</resources>
+	<themes>
+		<default>
+			<style resource='styles.css' />
+		</default>
+	</themes>
+</module>

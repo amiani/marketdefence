@@ -15,8 +15,9 @@ class Node {
   @:isVar public var linearVelocity(get, set) : FastVector2;
   @:s @:isVar public var angularVelocity(get, set) : Float;
   @:s @:isVar public var angle(get, set) : Float;
+  @:s @:isVar public var scale = 1.;
   var worldMatrix = FastMatrix3.identity();
-  var localMatrix(get, null) : FastMatrix3;
+  var localMatrix(get, never) : FastMatrix3;
 
   public var priority(default, null) : Int;
   public var accumulatedPriority(default, null) : Int;
@@ -61,7 +62,7 @@ class Node {
     //Game.activeScene.maxNodes.push(this);
   }
 
-  public function draw(g:Graphics);
+  public function draw(g:Graphics) {
     for (child in children) {
       child.draw(g);
     }
@@ -104,7 +105,9 @@ class Node {
   }
 
   function get_localMatrix() {
-    return FastMatrix3.translation(position.x, position.y).multmat(FastMatrix3.rotation(angle));
+    return FastMatrix3.translation(position.x, position.y)
+      .multmat(FastMatrix3.rotation(angle))
+      .multmat(FastMatrix3.scale(scale, scale));
   }
 
   public function check():Bool {

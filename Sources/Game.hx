@@ -13,6 +13,9 @@ class Game {
 
 	var background : Background;
 	var screen : Screen;
+	var market : Market;
+	var scene = new Node(null);
+	var TIMESTEP = 1/60;
 
 	public function new(width:Int, height:Int) {
 		this.width = width;
@@ -21,6 +24,7 @@ class Game {
 	}
 
 	public function update() : Void {
+		scene.update(TIMESTEP);
 	}
 
 	public function draw(frames:Array<Framebuffer>) : Void {
@@ -33,9 +37,9 @@ class Game {
     var g = frameBuffer.g2;
     g.begin();
 		g.pushTransformation(g.transformation.multmat(screen.matrix));
+		scene.draw(g);
     //background.draw(g, width, height);
     //scene.draw(g, worldToScreen);
-    //menu.draw(g, width, height);
 		g.popTransformation();
     g.end();
 	}
@@ -43,5 +47,6 @@ class Game {
 	function initScene() {
 		//background = new Background(Assets.images.goldstartile, width, height);
 		screen = new Screen(height, height*2);
+		market = new Market(scene, height);
 	}
 }
