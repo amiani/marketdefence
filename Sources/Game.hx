@@ -1,5 +1,7 @@
 import kha.Framebuffer;
 import kha.Assets;
+import box2D.dynamics.B2World;
+import box2D.common.math.B2Vec2;
 
 enum GameState {
 	Stopped;
@@ -12,9 +14,10 @@ class Game {
 	var height : Int;
 
 	var background : Background;
-	var screen : Screen;
+	var camera : Camera;
 	var market : Market;
 	var scene = new Node(null);
+	var world : B2World;
 	var TIMESTEP = 1/60;
 
 	public function new(width:Int, height:Int) {
@@ -25,6 +28,8 @@ class Game {
 
 	public function update() : Void {
 		scene.update(TIMESTEP);
+		world.step(TIMESTEP, 8, 3);
+		world.clearForces();
 	}
 
 	public function draw(frames:Array<Framebuffer>) : Void {
@@ -36,17 +41,17 @@ class Game {
 
     var g = frameBuffer.g2;
     g.begin();
-		g.pushTransformation(g.transformation.multmat(screen.matrix));
+		g.pushTransformation(g.transformation.multmat(camera.matrix));
 		scene.draw(g);
     //background.draw(g, width, height);
-    //scene.draw(g, worldToScreen);
 		g.popTransformation();
     g.end();
 	}
 
 	function initScene() {
 		//background = new Background(Assets.images.goldstartile, width, height);
-		screen = new Screen(height, height*2);
-		market = new Market(scene, height);
+		camera = new Camera(height, height*2);
+		market = new Market(scene, height, camera);
+		world = new B2World(new B2Vec2(0, 0), true);
 	}
 }

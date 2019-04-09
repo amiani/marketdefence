@@ -23,7 +23,6 @@ class Sprite extends Node {
   }
 
   override public function update(dt, ?parentWorldMatrix:FastMatrix3) {
-    angle += .01;
     super.update(dt);
   }
 

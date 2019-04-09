@@ -3,7 +3,7 @@ import Utils.clamp;
 import kha.math.FastMatrix3;
 import kha.math.FastVector2;
 
-class Screen {
+class Camera {
   public var position(default, null) = new FastVector2(0, 0);
   var screenHeight : Int;
   var worldHeight : Int;
@@ -24,6 +24,6 @@ class Screen {
   }
 
   function get_matrix() {
-    return FastMatrix3.translation(position.x, position.y);
+    return FastMatrix3.translation(position.x, -position.y);
   }
 }
