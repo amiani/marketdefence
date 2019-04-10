@@ -1,5 +1,7 @@
+import haxe.Constraints.Constructible;
 import kha.Framebuffer;
 import kha.Assets;
+import kha.math.FastVector2;
 import box2D.dynamics.B2World;
 import box2D.common.math.B2Vec2;
 
@@ -18,7 +20,10 @@ class Game {
 	var market : Market;
 	var scene = new Node(null);
 	var world : B2World;
+	var spawner : Spawner<Invader>;
 	var TIMESTEP = 1/60;
+	//var layers = new Array<Node>();
+	var invaderLayer : Node;
 
 	public function new(width:Int, height:Int) {
 		this.width = width;
@@ -53,5 +58,7 @@ class Game {
 		camera = new Camera(height, height*2);
 		market = new Market(scene, height, camera);
 		world = new B2World(new B2Vec2(0, 0), true);
+		invaderLayer = new Node(scene);
+		spawner = new Spawner<Invader>(new FastVector2(width/2, 0), invaderLayer, world, invaderLayer);
 	}
 }

@@ -33,7 +33,6 @@ class Market extends Node {
 	var renderTarget = kha.Image.createRenderTarget(768, 1024);
 	override public function draw(g:Graphics) {
 		//g.pushTransformation(g.transformation.multmat(worldMatrix));
-		trace(g.transformation);
 		main.renderTo(g);
 		//g.popTransformation();
 		super.draw(g);

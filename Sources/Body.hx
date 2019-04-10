@@ -1,13 +1,12 @@
-package bodies;
-
 import kha.graphics2.Graphics;
+import kha.math.FastVector2;
 import box2D.collision.shapes.B2MassData;
 import box2D.common.math.B2Vec2;
 import box2D.dynamics.*;
 
 class Body extends Node {
   var b2body : B2Body;
-  var components : Array<components.Component>;
+  //var components : Array<components.Component>;
 
   public function new(
     position: FastVector2,
@@ -22,17 +21,10 @@ class Body extends Node {
     bodyDef.linearDamping = 1;
     bodyDef.angularDamping = 3;
     b2body = world.createBody(bodyDef);
-    components = new Array<components.Component>();
+    //components = new Array<components.Component>();
   }
 
   override function initPhysicalVariables() {}
-
-  override public function update(dt : Float) {
-    for (c in components) {
-      c.update(this);
-    }
-    super.update(dt);
-  }
 
   override function get_position():FastVector2 {
     if (b2body == null)
@@ -54,7 +46,7 @@ class Body extends Node {
     if (b2body == null)
       return super.get_linearVelocity();
     else {
-      b2LinVel = b2body.getLinearVelocity();
+      var b2LinVel = b2body.getLinearVelocity();
       return new FastVector2(b2LinVel.x, b2LinVel.y);
     }
   }
