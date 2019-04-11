@@ -7,3 +7,6 @@
 [submodule "Libraries/haxeui-kha"]
 	path = Libraries/haxeui-kha
 	url = git@github.com:amiani/haxeui-kha
+[submodule "Libraries/box2d"]
+	path = Libraries/box2d
+	url = https://github.com/openfl/box2d
