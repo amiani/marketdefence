@@ -10,17 +10,16 @@ class Spawner<InvaderType:Constructible<FastVector2->Node->B2World->Void>> exten
 	var world : B2World;
 
 	public function new(position:FastVector2, invaderLayer:Node, world:B2World, parent:Node) {
-		super(parent);
-		this.position = position;
+		super(parent, position);
 		this.world = world;
 		this.invaderLayer = invaderLayer;
 		this.invaders = new Array<InvaderType>();
 	}
 
 	var timer = 0.;
-	override public function update(dt:Float, ?parentScreenMatrix:FastMatrix3) {
+	override public function update(dt:Float, ?parentWorldMatrix:FastMatrix3) {
 		timer += dt;
-		if (timer >= 1) {
+		if (timer >= 2) {
 			spawn();
 		}
 	}

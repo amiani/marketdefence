@@ -26,7 +26,7 @@ class Market extends Node {
 	}
 
 	override public function draw(g:Graphics) {
-		g.pushTransformation(g.transformation.multmat(screenMatrix));
+		g.pushTransformation(g.transformation.multmat(worldMatrix));
 		main.renderTo(g);
 		g.popTransformation();
 		super.draw(g);

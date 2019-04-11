@@ -2,7 +2,6 @@
 import kha.graphics2.Graphics;
 import kha.math.FastMatrix3;
 import kha.math.FastVector2;
-//import box2D.common.math.B2Vec2;
 //import hxbit.Serializable;
 
 class Node {
@@ -34,14 +33,14 @@ class Node {
     return parent = node;
   }
 
-  public function update(dt:Float, ?parentScreenMatrix:FastMatrix3) {
-    if (parentScreenMatrix == null) {
-      screenMatrix.setFrom(localMatrix);
+  public function update(dt:Float, ?parentWorldMatrix:FastMatrix3) {
+    if (parentWorldMatrix == null) {
+      worldMatrix.setFrom(localMatrix);
     } else {
-      screenMatrix = localMatrix.multmat(parentScreenMatrix);
+      worldMatrix = localMatrix.multmat(parentWorldMatrix);
     }
     for (child in children) {
-      child.update(dt, screenMatrix);
+      child.update(dt, worldMatrix);
     }
     accumulatedPriority += priority;
   }
@@ -84,12 +83,12 @@ class Node {
     return angle = a;
   }
 
-  var screenMatrix = FastMatrix3.identity();
+  var worldMatrix = FastMatrix3.identity();
   var localMatrix(get, never) : FastMatrix3;
   function get_localMatrix() {
     return FastMatrix3.translation(position.x, position.y)
-      .multmat(FastMatrix3.rotation(angle))
-      .multmat(FastMatrix3.scale(scale, scale));
+      .multmat(FastMatrix3.scale(scale, scale))
+      .multmat(FastMatrix3.rotation(angle));
   }
 
   public function check():Bool {

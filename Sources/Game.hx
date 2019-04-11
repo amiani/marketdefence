@@ -57,9 +57,9 @@ class Game {
 	function initScene() {
 		//background = new Background(Assets.images.goldstartile, width, height);
 		camera = new Camera(height, height*2);
-		market = new Market(scene, height, camera);
+		//market = new Market(scene, height, camera);
 		world = new B2World(new B2Vec2(0, 0), true);
 		invaderLayer = new Node(scene);
-		spawner = new Spawner<Invader>(new FastVector2(width/2, 0), invaderLayer, world, invaderLayer);
+		spawner = new Spawner<Invader>(new FastVector2(12, 17), invaderLayer, world, invaderLayer);
 	}
 }

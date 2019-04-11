@@ -7,31 +7,32 @@ import box2D.dynamics.*;
 class Body extends Node {
   var b2body : B2Body;
 
-  public function new(
+  private function new(
     position: FastVector2,
     parent: Node,
     world : B2World,
-    bodyType : box2D.dynamics.B2BodyType 
+    bodyType : B2BodyType
   ) {
     var bodyDef = new B2BodyDef();
     bodyDef.type = bodyType;
-    bodyDef.position.set(position.x/Game.worldScale, position.y/Game.worldScale);
     bodyDef.linearDamping = 1;
     bodyDef.angularDamping = 3;
     b2body = world.createBody(bodyDef);
     super(parent, position);
   }
 
-  override public function update(dt:Float, ?parentscreenMatrix) {
+  override public function update(dt:Float, ?parentworldMatrix) {
+    updateBody(dt);
     super.update(dt, null);
   }
+  private function updateBody(dt:Float) {}
 
   override function get_position():FastVector2 {
     var b2pos = b2body.getPosition();
-    return new FastVector2(b2pos.x*Game.worldScale, b2pos.y*Game.worldScale);
+    return new FastVector2(b2pos.x, b2pos.y);
   }
   override function set_position(p:FastVector2):FastVector2 {
-    b2body.setPosition(new B2Vec2(p.x/Game.worldScale, p.y/Game.worldScale));
+    b2body.setPosition(new B2Vec2(p.x, p.y));
     return p;
   }
 

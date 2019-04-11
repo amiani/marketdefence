@@ -24,6 +24,7 @@ class Camera {
   }
 
   function get_matrix() {
-    return FastMatrix3.translation(position.x, -position.y);
+    return FastMatrix3.scale(Game.worldScale, -Game.worldScale)
+      .multmat(FastMatrix3.translation(position.x, (-screenHeight+position.y)/Game.worldScale));
   }
 }
