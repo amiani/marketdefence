@@ -6,7 +6,6 @@ import box2D.dynamics.*;
 
 class Body extends Node {
   var b2body : B2Body;
-  //var components : Array<components.Component>;
 
   public function new(
     position: FastVector2,
@@ -17,28 +16,30 @@ class Body extends Node {
     super(parent);
     var bodyDef = new B2BodyDef();
     bodyDef.type = bodyType;
-    bodyDef.position.set(position.x, position.y);
+    trace(position);
+    bodyDef.position.set(position.x/Game.worldScale, position.y/Game.worldScale);
     bodyDef.linearDamping = 1;
     bodyDef.angularDamping = 3;
     b2body = world.createBody(bodyDef);
-    //components = new Array<components.Component>();
   }
 
-  override function initPhysicalVariables() {}
+  override public function update(dt:Float, ?parentscreenMatrix) {
+    super.update(dt);
+  }
 
   override function get_position():FastVector2 {
     if (b2body == null)
       return super.get_position();
     else {
       var b2pos = b2body.getPosition();
-      return new FastVector2(b2pos.x, b2pos.y);
+      return new FastVector2(b2pos.x*Game.worldScale, b2pos.y*Game.worldScale);
     }
   }
   override function set_position(p:FastVector2):FastVector2 {
     if (b2body == null)
       super.set_position(p);
     else
-      b2body.setPosition(new B2Vec2(p.x, p.y));
+      b2body.setPosition(new B2Vec2(p.x/Game.worldScale, p.y/Game.worldScale));
     return p;
   }
 

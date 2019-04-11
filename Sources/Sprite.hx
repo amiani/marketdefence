@@ -19,16 +19,12 @@ class Sprite extends Node {
     this.height = height;
     this.sx = sx;
     this.sy = sy;
-    this.origin = new FastVector2(512/2,512/2);
-  }
-
-  override public function update(dt, ?parentWorldMatrix:FastMatrix3) {
-    super.update(dt);
+    this.origin = new FastVector2(width/2, height/2);
   }
 
 	override public function draw(g: Graphics) {
 		if (image != null && visible) {
-      g.pushTransformation(g.transformation.multmat(worldMatrix));
+      g.pushTransformation(g.transformation.multmat(screenMatrix));
       g.color = 0xffffffff;
       g.drawScaledSubImage(image, sx, sy, width, height, -origin.x, -origin.y, width*scale, height*scale);
       g.popTransformation();

@@ -16,7 +16,7 @@ class Node {
   @:s @:isVar public var angularVelocity(get, set) : Float;
   @:s @:isVar public var angle(get, set) : Float;
   @:s @:isVar public var scale = 1.;
-  var worldMatrix = FastMatrix3.identity();
+  var screenMatrix = FastMatrix3.identity();
   var localMatrix(get, never) : FastMatrix3;
 
   public var priority(default, null) : Int;
@@ -49,14 +49,14 @@ class Node {
     return parent = node;
   }
 
-  public function update(dt:Float, ?parentWorldMatrix:FastMatrix3) {
-    if (parentWorldMatrix == null) {
-      worldMatrix.setFrom(localMatrix);
+  public function update(dt:Float, ?parentScreenMatrix:FastMatrix3) {
+    if (parentScreenMatrix == null) {
+      screenMatrix.setFrom(localMatrix);
     } else {
-      worldMatrix = localMatrix.multmat(parentWorldMatrix);
+      screenMatrix = localMatrix.multmat(parentScreenMatrix);
     }
     for (child in children) {
-      child.update(dt, worldMatrix);
+      child.update(dt, screenMatrix);
     }
     accumulatedPriority += priority;
     //Game.activeScene.maxNodes.push(this);

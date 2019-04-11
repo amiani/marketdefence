@@ -7,12 +7,7 @@ class Invader extends Body {
 
 	public function new(position:FastVector2, parent:Node, world:B2World) {
 		super(position, parent, world, DYNAMIC_BODY);
-		sprite = new Sprite(Assets.images.invadera, 512, 512, this);
-		sprite.origin = new FastVector2(512/2, 512/2);
-	}
-
-	override public function update(dt, ?parentWorldMatrix) {
-
-		super.update(dt, parentWorldMatrix);
+		sprite = new Sprite(Assets.images.invadera, 64, 64, this);
+		linearVelocity = new FastVector2(0, 1);
 	}
 }

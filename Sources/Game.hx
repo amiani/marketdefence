@@ -20,6 +20,7 @@ class Game {
 	var market : Market;
 	var scene = new Node(null);
 	var world : B2World;
+	public static var worldScale = 64;
 	var spawner : Spawner<Invader>;
 	var TIMESTEP = 1/60;
 	//var layers = new Array<Node>();

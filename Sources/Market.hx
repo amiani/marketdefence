@@ -25,16 +25,10 @@ class Market extends Node {
 		main.ready();
 	}
 
-	override public function update(dt:Float, ?parentWorldMatrix:FastMatrix3) {
-		super.update(dt, parentWorldMatrix);
-		main.top = height - camera.position.y;
-	}
-
-	var renderTarget = kha.Image.createRenderTarget(768, 1024);
 	override public function draw(g:Graphics) {
-		//g.pushTransformation(g.transformation.multmat(worldMatrix));
+		g.pushTransformation(g.transformation.multmat(screenMatrix));
 		main.renderTo(g);
-		//g.popTransformation();
+		g.popTransformation();
 		super.draw(g);
 	}
 }

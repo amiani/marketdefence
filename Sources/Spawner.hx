@@ -17,16 +17,17 @@ class Spawner<InvaderType:Constructible<FastVector2->Node->B2World->Void>> exten
 		this.invaders = new Array<InvaderType>();
 	}
 
-	var time = 0.;
-	override public function update(dt:Float, ?parentWorldMatrix:FastMatrix3) {
-		time += dt;
-		if (time % 1 == 0) {
+	var timer = 0.;
+	override public function update(dt:Float, ?parentScreenMatrix:FastMatrix3) {
+		timer += dt;
+		if (timer >= 1) {
 			spawn();
 		}
 	}
 
-	function spawn() {
+	private function spawn() {
 		var inv:InvaderType = new InvaderType(new FastVector2(position.x, position.y), invaderLayer, world);
 		invaders.push(inv);
+		timer -= 1;
 	}
 }
