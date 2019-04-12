@@ -11,15 +11,15 @@ import box2D.common.math.B2Transform;
 
 class DebugDraw extends B2DebugDraw {
 	private var image : Image;
-	public function new() {
+	private var camera : Camera;
+	public function new(camera) {
 		super();
+		this.camera = camera;
 		image = Image.createRenderTarget(768, 1024);
 	}
 
 	public function draw(g:Graphics) {
-		g.pushTransformation(g.transformation.multmat(FastMatrix3.scale(1/Game.worldScale, -1/Game.worldScale)));
 		g.drawImage(image, 0, 0);
-		g.popTransformation();
 	}
 
 	override public function drawPolygon(vertices:Array<B2Vec2>, vertexCount:Int, color:B2Color) : Void{
@@ -63,5 +63,6 @@ class DebugDraw extends B2DebugDraw {
 
 	override public function clear() {
 		image.g2.clear();
+		image.g2.pushTransformation(camera.matrix);
 	}
 }

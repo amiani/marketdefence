@@ -25,7 +25,7 @@ class Game {
 	var TIMESTEP = 1/60;
 	//var layers = new Array<Node>();
 	var invaderLayer : Node;
-	var debugDraw = new DebugDraw();
+	var debugDraw : DebugDraw;
 
 	public function new(width:Int, height:Int) {
 		this.width = width;
@@ -63,6 +63,7 @@ class Game {
 		camera = new Camera(height, height*2);
 		//market = new Market(scene, height, camera);
 		world = new B2World(new B2Vec2(0, 0), true);
+		debugDraw = new DebugDraw(camera);
 		world.setDebugDraw(debugDraw);
 		debugDraw.setFlags(box2D.dynamics.B2DebugDraw.e_shapeBit);
 		invaderLayer = new Node(scene);
