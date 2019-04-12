@@ -9,6 +9,7 @@ class LaserTurret extends Body {
 	var gun : Sprite;
 	var base : Sprite;
 	var semiCircleShape : B2PolygonShape;
+	public static var category = 0x0002;
 
 	public function new(position: FastVector2, parent:Node, world:B2World) {
 		super(position, parent, world, STATIC_BODY);
@@ -23,6 +24,9 @@ class LaserTurret extends Body {
 		radarFixtureDef.density = 1;
 		radarFixtureDef.friction = .3;
 		radarFixtureDef.isSensor = true;
+		radarFixtureDef.userData = this;
+		radarFixtureDef.filter.categoryBits = category;
+		radarFixtureDef.filter.maskBits = Invader.category;
 		b2body.createFixture(radarFixtureDef);
 	}
 

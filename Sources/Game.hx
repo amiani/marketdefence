@@ -26,6 +26,7 @@ class Game {
 	//var layers = new Array<Node>();
 	var invaderLayer : Node;
 	var debugDraw : DebugDraw;
+	var contactListener : ContactListener;
 
 	public function new(width:Int, height:Int) {
 		this.width = width;
@@ -63,9 +64,13 @@ class Game {
 		camera = new Camera(height, height*2);
 		//market = new Market(scene, height, camera);
 		world = new B2World(new B2Vec2(0, 0), true);
+
 		debugDraw = new DebugDraw(camera);
-		world.setDebugDraw(debugDraw);
 		debugDraw.setFlags(box2D.dynamics.B2DebugDraw.e_shapeBit);
+		world.setDebugDraw(debugDraw);
+		contactListener = new ContactListener();
+		world.setContactListener(contactListener);
+
 		invaderLayer = new Node(scene);
 		spawner = new Spawner<Invader>(new FastVector2(12/2, 17), invaderLayer, world, invaderLayer);
 		laserTurret = new LaserTurret(new FastVector2(12/2, 0), scene, world);

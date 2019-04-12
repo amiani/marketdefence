@@ -17,6 +17,7 @@ class Body extends Node {
     bodyDef.type = bodyType;
     bodyDef.linearDamping = 1;
     bodyDef.angularDamping = 3;
+    bodyDef.userData = this;
     b2body = world.createBody(bodyDef);
     super(parent, position);
   }
@@ -26,6 +27,13 @@ class Body extends Node {
     super.update(dt, null);
   }
   private function updateBody(dt:Float) {}
+
+  public function handleBeginContact(contacted:Body) {
+  }
+  
+  public function handleEndContact(contacted:Body) {
+
+  }
 
   override function get_position():FastVector2 {
     var b2pos = b2body.getPosition();

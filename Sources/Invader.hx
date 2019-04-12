@@ -7,6 +7,7 @@ import box2D.collision.shapes.B2PolygonShape;
 
 class Invader extends Body {
 	var sprite : Sprite;
+	public static var category = 0x0001;
 
 	public function new(position:FastVector2, parent:Node, world:B2World) {
 		super(position, parent, world, DYNAMIC_BODY);
@@ -15,6 +16,7 @@ class Invader extends Body {
 		var fixtureDef = new B2FixtureDef();
 		fixtureDef.shape = B2PolygonShape.asBox(.5, .5);
 		fixtureDef.friction = .3;
+		fixtureDef.filter.categoryBits = category;
 		fixtureDef.userData = this;
 		b2body.createFixture(fixtureDef);
 	}
