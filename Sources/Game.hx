@@ -60,6 +60,6 @@ class Game {
 		//market = new Market(scene, height, camera);
 		world = new B2World(new B2Vec2(0, 0), true);
 		invaderLayer = new Node(scene);
-		spawner = new Spawner<Invader>(new FastVector2(12, 17), invaderLayer, world, invaderLayer);
+		spawner = new Spawner<Invader>(new FastVector2(12/2, 17), invaderLayer, world, invaderLayer);
 	}
 }

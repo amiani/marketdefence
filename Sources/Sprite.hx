@@ -27,7 +27,6 @@ class Sprite extends Node {
       g.pushTransformation(g.transformation
         .multmat(worldMatrix)
         .multmat(FastMatrix3.scale(1/Game.worldScale, -1/Game.worldScale)));
-      trace(worldMatrix);
       g.color = 0xffffffff;
       g.drawScaledSubImage(image, sx, sy, width, height, -origin.x, -origin.y, width*scale, height*scale);
       g.popTransformation();

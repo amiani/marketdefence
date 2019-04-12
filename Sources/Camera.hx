@@ -4,7 +4,7 @@ import kha.math.FastMatrix3;
 import kha.math.FastVector2;
 
 class Camera {
-  public var position(default, null) = new FastVector2(0, 0);
+  public var position(default, null) = new FastVector2();
   var screenHeight : Int;
   var worldHeight : Int;
   public var matrix(get, never) : FastMatrix3;
@@ -25,6 +25,6 @@ class Camera {
 
   function get_matrix() {
     return FastMatrix3.scale(Game.worldScale, -Game.worldScale)
-      .multmat(FastMatrix3.translation(position.x, (-screenHeight+position.y)/Game.worldScale));
+      .multmat(FastMatrix3.translation(position.x/Game.worldScale, (-screenHeight+position.y)/Game.worldScale));
   }
 }
