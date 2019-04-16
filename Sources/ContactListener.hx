@@ -32,13 +32,15 @@ class ContactListener extends B2ContactListener {
 		var fixtureA = contact.getFixtureA();
 		var fixtureB = contact.getFixtureB();
 		if (fixtureA != null && fixtureB != null) {
-			var handlersA = fixtureA.getUserData();
-			var handlersB = fixtureB.getUserData();
-			var nameA = Type.getClassName(Type.getClass(handlersA));
-			var nameB = Type.getClassName(Type.getClass(handlersB));
+			var parentA = fixtureA.getUserData();
+			var parentB = fixtureB.getUserData();
+			var nameA = Type.getClassName(Type.getClass(parentA));
+			var nameB = Type.getClassName(Type.getClass(parentB));
 			var contactHandler = contactMap.get(nameA+nameB);
-			if (contactHandler != null)
-				contactHandler(handlersA, handlersB);
+			if (contactHandler == null)
+				contactHandler(parentA, parentB);
+			else
+				unknownCollision(parentA, parentB)
 		}
 	}
 
@@ -67,5 +69,9 @@ class ContactListener extends B2ContactListener {
 
 	private function invaderRadarBegin(invader:Body, radar:Body) {
 		cast(radar, Radar).detectedEnemies.set(invader.id, invader);
+	}
+
+	private function unknownCollision(bodyA:Body, bodyB:Body) {
+
 	}
 }
