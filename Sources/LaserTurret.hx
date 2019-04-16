@@ -10,6 +10,7 @@ class LaserTurret extends Body {
 	private var gun : Sprite;
 	private var base : Sprite;
 	private var radar : Radar;
+	private var world : B2World;
 
 	public function new(position: FastVector2, parent:Node, world:B2World) {
 		super(position, parent, world, STATIC_BODY);
@@ -17,14 +18,31 @@ class LaserTurret extends Body {
 		gun = new Sprite(Assets.images.turret1, 28, 54, 52, 3, this);
 		gun.origin = new FastVector2(gun.width/2, gun.height);
 		radar = new Radar(b2body, this);
+		this.world = world;
 	}
 
 	private var target : Body;
+	private var cooldownTimer = 0.;
 	override public function update(dt, ?parentWorldMatrix) {
+		cooldownTimer += dt;
 		if (target == null || !target.isActive()) {
 			target = radar.getClosest();
 		}
 
+		orient();
+		fire();
+
 		super.update(dt, parentWorldMatrix);
+	}
+
+	private function orient() {
+
+	}
+
+	private function fire() {
+		if (target != null && cooldownTimer >= 1) {
+			new Laser(position, angle, parent, world);
+			cooldownTimer = 0;
+		}
 	}
 }
