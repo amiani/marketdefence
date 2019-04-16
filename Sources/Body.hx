@@ -5,7 +5,7 @@ import box2D.common.math.B2Vec2;
 import box2D.dynamics.*;
 
 class Body extends Node {
-  var b2body : B2Body;
+  public var b2body(default, null) : B2Body;
 
   private function new(
     position: FastVector2,
@@ -28,6 +28,8 @@ class Body extends Node {
   }
   private function updateBody(dt:Float) {}
 
+  public function isActive():Bool return b2body.isActive();
+
   override function get_position():FastVector2 {
     var b2pos = b2body.getPosition();
     return new FastVector2(b2pos.x, b2pos.y);
@@ -46,17 +48,13 @@ class Body extends Node {
     return v;
   }
 
-  override function get_angularVelocity() {
-    return b2body.getAngularVelocity();
-  }
+  override function get_angularVelocity() return b2body.getAngularVelocity();
   override function set_angularVelocity(o:Float) {
     b2body.setAngularVelocity(o);
     return o;
   }
 
-  override function get_angle() {
-    return b2body.getAngle();
-  }
+  override function get_angle() return b2body.getAngle();
   override function set_angle(a:Float) {
     b2body.setAngle(a);
     return a;

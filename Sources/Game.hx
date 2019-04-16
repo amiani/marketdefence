@@ -15,29 +15,25 @@ class Game {
 	var width : Int;
 	var height : Int;
 
-	var background : Background;
-	var camera : Camera;
-	var market : Market;
-	var scene = new Node(null);
-	var world : B2World;
-	public static var worldScale = 64;
-	var spawner : Spawner<Invader>;
-	var TIMESTEP = 1/60;
-	//var layers = new Array<Node>();
-	var invaderLayer : Node;
-	var debugDraw : DebugDraw;
-	var contactListener : ContactListener;
-
 	public function new(width:Int, height:Int) {
 		this.width = width;
 		this.height = height;
 		initScene();
 	}
 
+	var TIMESTEP = 1/60;
+
 	public function update() : Void {
 		scene.update(TIMESTEP);
 		world.step(TIMESTEP, 8, 3);
 		world.clearForces();
+		for (b in bodiesToRemove) {
+			world.destroyBody(b.b2body);
+			trace('ostensibly destroyed body');
+			b.parent = null;
+			b = null;
+		}
+		bodiesToRemove.resize(0);
 	}
 
 	public function draw(frames:Array<Framebuffer>) : Void {
@@ -58,19 +54,34 @@ class Game {
     g.end();
 	}
 
+	var camera : Camera;
+	var world : B2World;
+	public static var worldScale = 64;
+	var debugDraw : DebugDraw;
+	var bodiesToRemove : Array<Body>;
+	var contactListener : ContactListener;
+	var background : Background;
+	var market : Market;
+	var scene = new Node(null);
+	var earth : Earth;
+	var invaderLayer : Node;
+	var spawner : Spawner<Invader>;
 	var laserTurret : LaserTurret;
-	function initScene() {
-		//background = new Background(Assets.images.goldstartile, width, height);
-		camera = new Camera(height, height*2);
-		//market = new Market(scene, height, camera);
-		world = new B2World(new B2Vec2(0, 0), true);
 
+	function initScene() {
+		camera = new Camera(height, height*2);
+		world = new B2World(new B2Vec2(0, 0), true);
 		debugDraw = new DebugDraw(camera);
 		debugDraw.setFlags(box2D.dynamics.B2DebugDraw.e_shapeBit);
-		world.setDebugDraw(debugDraw);
-		contactListener = new ContactListener();
+		//world.setDebugDraw(debugDraw);
+		bodiesToRemove = new Array<Body>();
+		contactListener = new ContactListener(world, bodiesToRemove);
 		world.setContactListener(contactListener);
 
+		//background = new Background(Assets.images.goldstartile, width, height);
+		//market = new Market(scene, height, camera);
+
+		earth = new Earth(12, scene, world);
 		invaderLayer = new Node(scene);
 		spawner = new Spawner<Invader>(new FastVector2(12/2, 17), invaderLayer, world, invaderLayer);
 		laserTurret = new LaserTurret(new FastVector2(12/2, 0), scene, world);

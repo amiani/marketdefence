@@ -23,14 +23,14 @@ class Node {
 
   public var children(default, null) : Array<Node>;
   public var parent(default, set) : Node;
-  public function set_parent(node:Node):Node {
+  public function set_parent(newParent:Node):Node {
     if (parent != null) {
       var index = parent.children.indexOf(this);
       if (index != -1)
         parent.children.splice(index, 1);
     }
-    if (node != null) node.children.push(this);
-    return parent = node;
+    if (newParent != null) newParent.children.push(this);
+    return parent = newParent;
   }
 
   public function update(dt:Float, ?parentWorldMatrix:FastMatrix3) {
@@ -44,7 +44,7 @@ class Node {
     }
     accumulatedPriority += priority;
   }
-
+  
   public function draw(g:Graphics) {
     for (child in children) {
       child.draw(g);

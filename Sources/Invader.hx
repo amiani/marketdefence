@@ -3,6 +3,7 @@ import kha.math.FastVector2;
 import box2D.dynamics.B2World;
 import box2D.common.math.B2Vec2;
 import box2D.dynamics.B2FixtureDef;
+import box2D.dynamics.B2Fixture;
 import box2D.collision.shapes.B2PolygonShape;
 
 class Invader extends Body {
@@ -17,7 +18,7 @@ class Invader extends Body {
 		fixtureDef.shape = B2PolygonShape.asBox(.5, .5);
 		fixtureDef.friction = .3;
 		fixtureDef.filter.categoryBits = category;
-		fixtureDef.userData = { handleBeginContact: ()->{}, handleEndContact: ()->{} };
+		fixtureDef.userData = this;
 		b2body.createFixture(fixtureDef);
 	}
 
