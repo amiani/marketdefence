@@ -29,7 +29,6 @@ class Game {
 		world.clearForces();
 		for (b in bodiesToRemove) {
 			world.destroyBody(b.b2body);
-			trace('ostensibly destroyed body');
 			b.parent = null;
 			b = null;
 		}
