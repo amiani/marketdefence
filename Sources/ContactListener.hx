@@ -37,10 +37,10 @@ class ContactListener extends B2ContactListener {
 			var nameA = Type.getClassName(Type.getClass(parentA));
 			var nameB = Type.getClassName(Type.getClass(parentB));
 			var contactHandler = contactMap.get(nameA+nameB);
-			if (contactHandler == null)
+			if (contactHandler != null)
 				contactHandler(parentA, parentB);
 			else
-				unknownCollision(parentA, parentB)
+				unknownCollision(parentA, parentB);
 		}
 	}
 
@@ -63,7 +63,6 @@ class ContactListener extends B2ContactListener {
 
 	private function invaderEarthBegin(invader:Body, earth:Body) {
 		bodiesToRemove.push(invader);
-		trace('destroyed invader');
 		//TODO: lose health
 	}
 
