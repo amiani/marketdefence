@@ -7,21 +7,21 @@ class ContactListener extends B2ContactListener {
 		var fixtureA = contact.getFixtureA();
 		var fixtureB = contact.getFixtureB();
 		if (fixtureA != null && fixtureB != null) {
-			var bodyA = cast(fixtureA.getBody().getUserData(), Body);
-			var bodyB = cast(fixtureB.getBody().getUserData(), Body);
-			bodyA.handleBeginContact(bodyB);
-			bodyB.handleBeginContact(bodyA);
+			var handlersA = fixtureA.getUserData();
+			var handlersB = fixtureB.getUserData();
+			handlersA.handleBeginContact(fixtureB);
+			handlersB.handleBeginContact(fixtureA);
 		}
 	}
 
 	override public function endContact(contact:B2Contact) {
-		var fixtureA = contact.getFixtureA():
+		var fixtureA = contact.getFixtureA();
 		var fixtureB = contact.getFixtureA();
 		if (fixtureA != null && fixtureB != null) {
-			var bodyA = cast(fixtureA, Body);
-			var bodyB = cast(fixtureB, Body);
-			bodyA.handleEndContact(bodyB);
-			bodyB.handleEndContact(bodyA);
+			var handlersA = fixtureA.getUserData();
+			var handlersB = fixtureB.getUserData();
+			handlersA.handleEndContact(fixtureB);
+			handlersB.handleEndContact(fixtureA);
 		}
 	}
 }

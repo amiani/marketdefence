@@ -28,13 +28,6 @@ class Body extends Node {
   }
   private function updateBody(dt:Float) {}
 
-  public function handleBeginContact(contacted:Body) {
-  }
-  
-  public function handleEndContact(contacted:Body) {
-
-  }
-
   override function get_position():FastVector2 {
     var b2pos = b2body.getPosition();
     return new FastVector2(b2pos.x, b2pos.y);

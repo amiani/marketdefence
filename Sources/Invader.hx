@@ -17,7 +17,7 @@ class Invader extends Body {
 		fixtureDef.shape = B2PolygonShape.asBox(.5, .5);
 		fixtureDef.friction = .3;
 		fixtureDef.filter.categoryBits = category;
-		fixtureDef.userData = this;
+		fixtureDef.userData = { handleBeginContact: ()->{}, handleEndContact: ()->{} };
 		b2body.createFixture(fixtureDef);
 	}
 
