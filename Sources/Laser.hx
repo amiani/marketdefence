@@ -14,10 +14,9 @@ class Laser extends Body {
 	private var length = .4;
 	override public function draw(g:Graphics) {
 		super.draw(g);
-		trace(parent);
 		g.pushTransformation(g.transformation.multmat(worldMatrix));
 		g.color = 0xffff0000;
-		g.drawLine(position.x, position.y-length/2, position.x, position.y+length/2, .1);
+		g.drawLine(0, -length/2, 0, length/2, .035);
 		g.popTransformation();
 	}
 }

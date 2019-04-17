@@ -18,6 +18,7 @@ class Spawner<InvaderType:Constructible<FastVector2->Node->B2World->Void>> exten
 
 	var timer = 0.;
 	override public function update(dt:Float, ?parentWorldMatrix:FastMatrix3) {
+		super.update(dt, parentWorldMatrix);
 		timer += dt;
 		if (timer >= 2) {
 			spawn();
