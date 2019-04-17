@@ -23,10 +23,8 @@ class Body extends Node {
   }
 
   override public function update(dt:Float, ?parentworldMatrix) {
-    updateBody(dt);
     super.update(dt, null);
   }
-  private function updateBody(dt:Float) {}
 
   public function isActive():Bool return b2body.isActive();
 

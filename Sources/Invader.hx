@@ -22,7 +22,8 @@ class Invader extends Body {
 		b2body.createFixture(fixtureDef);
 	}
 
-	override private function updateBody(dt:Float) {
+	override public function update(dt:Float, ?parentWorldMatrix) {
+		super.update(dt, parentWorldMatrix);
 		b2body.applyForce(b2body.getWorldVector(new B2Vec2(0, 1)), b2body.getWorldCenter());
 	}
 }
