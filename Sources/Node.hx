@@ -37,7 +37,7 @@ class Node {
     if (parentWorldMatrix == null) {
       worldMatrix.setFrom(localMatrix);
     } else {
-      worldMatrix = localMatrix.multmat(parentWorldMatrix);
+      worldMatrix = parentWorldMatrix.multmat(localMatrix);
     }
     for (child in children) {
       child.update(dt, worldMatrix);
@@ -89,6 +89,7 @@ class Node {
     return FastMatrix3.translation(position.x, position.y)
       .multmat(FastMatrix3.scale(scale, scale))
       .multmat(FastMatrix3.rotation(angle));
+      //.multmat(FastMatrix3.translation(-origin.x, -origin.y));
   }
 
   public function check():Bool {
