@@ -8,7 +8,7 @@ class Laser extends Body {
 	public function new(position:FastVector2, angle:FastFloat, parent:Node, world:B2World) {
 		super(position, parent, world, KINEMATIC_BODY);
 		this.angle = angle;
-		this.linearVelocity = new FastVector2(0, 3);
+		this.linearVelocity = new FastVector2(3*Math.sin(angle), 3*Math.cos(angle));
 	}
 
 	private var length = .4;

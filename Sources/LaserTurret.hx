@@ -35,8 +35,15 @@ class LaserTurret extends Body {
 		super.update(dt, parentWorldMatrix);
 	}
 
+	private var gunAngle = 0.;
 	private function orient() {
-
+		if (target == null || !target.isActive()) {
+			gun.angle = 0.;
+		} else {
+			gunAngle = Math.atan2(-(target.position.x-position.x), target.position.y-position.y);
+			gun.angle = gunAngle;
+			trace(gunAngle);
+		}
 	}
 
 	private function fire() {
