@@ -82,7 +82,7 @@ class Game {
 
 		earth = new Earth(12, scene, world);
 		invaderLayer = new Node(scene);
-		spawner = new Spawner<Invader>(new FastVector2(12/2, 17), invaderLayer, world, invaderLayer);
+		spawner = new Spawner<Invader>(new FastVector2(4, 17), invaderLayer, world, invaderLayer);
 		laserTurret = new LaserTurret(new FastVector2(12/2, 0), scene, world);
 	}
 }
