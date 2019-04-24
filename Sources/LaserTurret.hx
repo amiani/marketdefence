@@ -15,7 +15,7 @@ class LaserTurret extends Body {
 	public function new(position: FastVector2, parent:Node, world:B2World) {
 		super(position, parent, world, STATIC_BODY);
 		base = new Sprite(Assets.images.turret1, 64, 48, 35, 65, this);
-		gun = new Sprite(Assets.images.turret1, 28, 54, 52, 3, this);
+		gun = new Sprite(Assets.images.turret1, 28, 54, 52, 3, Math.PI/2, this);
 		gun.origin = new FastVector2(gun.width/2, gun.height);
 		radar = new Radar(b2body, this);
 		this.world = world;
@@ -35,20 +35,17 @@ class LaserTurret extends Body {
 		super.update(dt, parentWorldMatrix);
 	}
 
-	private var gunAngle = 0.;
 	private function orient() {
 		if (target == null || !target.isActive()) {
-			gun.angle = 0.;
+			gun.angle = Math.PI/2;
 		} else {
-			gunAngle = Math.atan2(-(target.position.x-position.x), target.position.y-position.y);
-			gun.angle = gunAngle;
-			trace(gunAngle);
+			gun.angle = Math.PI - Math.atan2(target.position.y-position.y, position.x-target.position.x);
 		}
 	}
 
 	private function fire() {
 		if (target != null && cooldownTimer >= 1) {
-			new Laser(position, angle, parent, world);
+			new Laser(position, gun.angle, parent, world);
 			cooldownTimer = 0;
 		}
 	}

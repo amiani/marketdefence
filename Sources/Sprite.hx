@@ -8,15 +8,17 @@ class Sprite extends Node {
   public var width(default, null) : Int;
   public var height(default, null) : Int;
   public var origin : FastVector2 = new FastVector2();
+  private var offset(default, null) : Float;
   public var sx(default, null) : Int;
   public var sy(default, null) : Int;
-  var visible = true;
+  private var visible = true;
 
-  public function new(image : Image, width: Int, height:Int, sx:Int=0, sy:Int=0, parent:Node) {
+  public function new(image : Image, width: Int, height:Int, sx:Int=0, sy:Int=0, offset:Float=0, parent:Node) {
     super(parent);
     this.image = image;
     this.width = width;
     this.height = height;
+    this.offset = offset;
     this.sx = sx;
     this.sy = sy;
     this.origin = new FastVector2(width/2, height/2);
@@ -26,6 +28,7 @@ class Sprite extends Node {
 		if (image != null && visible) {
       g.pushTransformation(g.transformation
         .multmat(worldMatrix)
+        .multmat(FastMatrix3.rotation(-offset))
         .multmat(FastMatrix3.scale(1/Game.worldScale, -1/Game.worldScale)));
       g.color = 0xffffffff;
       g.drawScaledSubImage(image, sx, sy, width, height, -origin.x, -origin.y, width*scale, height*scale);

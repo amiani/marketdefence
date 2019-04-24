@@ -8,7 +8,7 @@ class Laser extends Body {
 	public function new(position:FastVector2, angle:FastFloat, parent:Node, world:B2World) {
 		super(position, parent, world, KINEMATIC_BODY);
 		this.angle = angle;
-		this.linearVelocity = new FastVector2(3*Math.sin(angle), 3*Math.cos(angle));
+		this.linearVelocity = new FastVector2(5*Math.cos(angle), 5*Math.sin(angle));
 	}
 
 	private var length = .4;
@@ -16,7 +16,7 @@ class Laser extends Body {
 		super.draw(g);
 		g.pushTransformation(g.transformation.multmat(worldMatrix));
 		g.color = 0xffff0000;
-		g.drawLine(0, -length/2, 0, length/2, .035);
+		g.drawLine(-length/2, 0, length/2, 0, .035);
 		g.popTransformation();
 	}
 }
