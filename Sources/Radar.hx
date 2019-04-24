@@ -34,7 +34,6 @@ class Radar extends Node {
 				if (enemyDistance < closestEnemyDistance) {
 					closestEnemy = enemy;
 					closestEnemyDistance = enemyDistance;
-					trace('got new target: '+enemy.id);
 				}
 			}
 		}
