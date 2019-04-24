@@ -1,13 +1,11 @@
-//import hxbit.Serializer;
 import kha.graphics2.Graphics;
 import kha.math.FastMatrix3;
 import kha.math.FastVector2;
-//import hxbit.Serializable;
 
 class Node {
   static var lastId = 0;
-  @:s public var id(default, null) : Int;
-  @:s @:isVar public var scale = 1.;
+  public var id(default, null) : Int;
+  public var scale = 1.;
 
   public function new(parent:Node, ?position:FastVector2, ?priority: Int) {
     this.id = ++lastId;
@@ -55,7 +53,7 @@ class Node {
   public function get_position() {
     return position;
   }
-  function set_position(p:FastVector2) {
+  private function set_position(p:FastVector2) {
     return position = p;
   }
 
@@ -63,33 +61,32 @@ class Node {
   public function get_linearVelocity() {
     return linearVelocity;
   }
-  function set_linearVelocity(v:FastVector2) {
+  private function set_linearVelocity(v:FastVector2) {
     return linearVelocity = v;
   }
 
   @:s @:isVar public var angularVelocity(get, set) : Float;
-  function get_angularVelocity() {
+  private function get_angularVelocity() {
     return angularVelocity;
   }
-  function set_angularVelocity(o:Float) {
+  private function set_angularVelocity(o:Float) {
     return angularVelocity = o;
   }
 
   @:s @:isVar public var angle(get, set) : Float;
-  function get_angle() {
+  private function get_angle() {
     return angle;
   }
-  function set_angle(a:Float) {
+  private function set_angle(a:Float) {
     return angle = a;
   }
 
-  var worldMatrix = FastMatrix3.identity();
-  var localMatrix(get, never) : FastMatrix3;
-  function get_localMatrix() {
+  private var worldMatrix = FastMatrix3.identity();
+  private var localMatrix(get, never) : FastMatrix3;
+  private function get_localMatrix() {
     return FastMatrix3.translation(position.x, position.y)
       .multmat(FastMatrix3.scale(scale, scale))
       .multmat(FastMatrix3.rotation(angle));
-      //.multmat(FastMatrix3.translation(-origin.x, -origin.y));
   }
 
   public function check():Bool {
@@ -105,19 +102,4 @@ class Node {
   public inline function resetAccumulatedPriority() {
     accumulatedPriority = priority;
   }
-/*
-  @:keep
-  public function customSerialize(ctx:Serializer) {
-    ctx.addFloat(position.x);
-    ctx.addFloat(position.y);
-    ctx.addFloat(linearVelocity.x);
-    ctx.addFloat(linearVelocity.y);
-  }
-
-  @:keep
-  public function customUnserialize(ctx:Serializer) {
-    position = new B2Vec2(ctx.getFloat(), ctx.getFloat());
-    linearVelocity = new B2Vec2(ctx.getFloat(), ctx.getFloat());
-  }
-  */
 }
