@@ -1,5 +1,6 @@
 import haxe.ui.Toolkit;
 import haxe.ui.components.Button;
+import haxe.ui.components.Label;
 import haxe.ui.core.UIEvent;
 import haxe.ui.macros.ComponentMacros;
 import haxe.ui.core.Component;
@@ -10,18 +11,25 @@ import haxe.ui.containers.VBox;
 import kha.Image;
 
 class Market extends Node {
-	var main : Component;
-	var camera : Camera;
-	var height : Int;
+	private var main : Component;
+	private var camera : Camera;
+	private var height : Int;
 
 	public function new(parent:Node, height:Int, camera:Camera) {
 		super(parent);
 		this.camera = camera;
 		this.height = height;
 		main = ComponentMacros.buildComponent('../Assets/ui/market.xml', Vbox);
-		var button:Button = main.findComponent('testButton', Button);
+		var button:Button = main.findComponent('laserTurret', Button);
+		creditsLabel = main.findComponent('playerCredits', Label);
 		button.onClick = (e:UIEvent) -> trace('hello');
 		main.ready();
+	}
+
+	private var creditsLabel : Label;
+	override public function update(dt:Float, ?parentWorldMatrix) {
+		super.update(dt, parentWorldMatrix);
+		creditsLabel.text = 'Credits: ' + playerCredits;
 	}
 
 	override public function draw(g:Graphics) {
@@ -31,5 +39,11 @@ class Market extends Node {
 		main.renderTo(g);
 		g.popTransformation();
 		super.draw(g);
+	}
+
+	public var playerCredits(default, null) = 120;
+
+	private function handleBuy(e:UIEvent) {
+		trace('definitely a buy');
 	}
 }

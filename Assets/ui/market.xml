@@ -1,5 +1,7 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <vbox width='768px' height='1024px' id='mainContainer'>
-	<button text='testButton' id='testButton' />
-	<button text='testButton' id='testButton2' onClick='trace("hello")' />
+	<box width='100%' height='50px' id='playerBar'>
+		<label id='playerCredits' text='Credits: 100'/>
+	</box>
+	<import resource='../Assets/ui/auction.xml' />
 </vbox>

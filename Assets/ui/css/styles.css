@@ -1,9 +1,12 @@
 #mainContainer {
 	background-color: #ee855e;
 }
-#testButton {
-	background-color: blue;
+
+#playerCredits {
+	height: 100%;
+	font-size: 32px;
 }
+
 #testButton2 {
 	padding-top: 20px;
 	padding-bottom: 2px;
