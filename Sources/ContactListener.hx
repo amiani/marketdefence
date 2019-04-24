@@ -17,7 +17,6 @@ class ContactListener extends B2ContactListener {
 
 	private var contactBeginMap : StringMap<Body->Body->Void>;
 	private var contactEndMap : StringMap<Body->Body->Void>;
-	var bodyNames = ['Invader', 'LaserTurret', 'Earth', 'Radar'];
 	private function initializeContactMaps() {
 		contactBeginMap = new StringMap<Body->Body->Void>();
 		contactBeginMap.set('InvaderLaserTurret', invaderTurretBegin);
@@ -26,6 +25,8 @@ class ContactListener extends B2ContactListener {
 		contactBeginMap.set('EarthInvader', (e, i) -> invaderEarthBegin(i, e));
 		contactBeginMap.set('InvaderRadar', invaderRadarBegin);
 		contactBeginMap.set('RadarInvader', (r, i) -> invaderRadarBegin(i, r));
+		contactBeginMap.set('InvaderLaser', invaderLaserBegin);
+		contactBeginMap.set('LaserInvader', (l, i) -> invaderLaserBegin(i, l));
 
 		contactEndMap = new StringMap<Body->Body->Void>();
 		/*
@@ -85,6 +86,12 @@ class ContactListener extends B2ContactListener {
 
 	private function invaderRadarEnd(invader:Body, radar:Body) {
 		cast(radar, Radar).detectedEnemies.remove(invader.id);
+	}
+
+	private function invaderLaserBegin(invader:Body, laserB:Body) {
+		var laser = cast(laserB, Laser);
+		cast(invader, Invader).dealDamage(laser.damage);
+		laser.remove();
 	}
 
 	private function unknownCollision(bodyA:Body, bodyB:Body) {
