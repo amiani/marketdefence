@@ -57,4 +57,10 @@ class Body extends Node {
     b2body.setAngle(a);
     return a;
   }
+
+  public function remove() {
+    Game.bodiesToRemove.push(b2body);
+    b2body = null;
+    parent = null;
+  }
 }

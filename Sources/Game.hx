@@ -3,6 +3,7 @@ import kha.Framebuffer;
 import kha.Assets;
 import kha.math.FastVector2;
 import box2D.dynamics.B2World;
+import box2D.dynamics.B2Body;
 import box2D.common.math.B2Vec2;
 
 enum GameState {
@@ -28,9 +29,7 @@ class Game {
 		world.step(TIMESTEP, 8, 3);
 		world.clearForces();
 		for (b in bodiesToRemove) {
-			world.destroyBody(b.b2body);
-			b.parent = null;
-			b = null;
+			world.destroyBody(b);
 		}
 		bodiesToRemove.resize(0);
 	}
@@ -57,7 +56,7 @@ class Game {
 	var world : B2World;
 	public static var worldScale = 64;
 	var debugDraw : DebugDraw;
-	var bodiesToRemove : Array<Body>;
+	public static var bodiesToRemove = new Array<B2Body>();
 	var contactListener : ContactListener;
 	var background : Background;
 	var market : Market;
@@ -73,8 +72,7 @@ class Game {
 		debugDraw = new DebugDraw(camera);
 		debugDraw.setFlags(box2D.dynamics.B2DebugDraw.e_shapeBit);
 		//world.setDebugDraw(debugDraw);
-		bodiesToRemove = new Array<Body>();
-		contactListener = new ContactListener(world, bodiesToRemove);
+		contactListener = new ContactListener(world);
 		world.setContactListener(contactListener);
 
 		//background = new Background(Assets.images.goldstartile, width, height);

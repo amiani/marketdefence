@@ -29,11 +29,13 @@ class Radar extends Node {
 		var closestEnemy:Body = null;
 		var closestEnemyDistance:FastFloat = 999999;
 		for (enemy in detectedEnemies.iterator()) {
-			var enemyDistance = enemy.position.sub(position).length;
-			if (enemyDistance < closestEnemyDistance) {
-				closestEnemy = enemy;
-				closestEnemyDistance = enemyDistance;
-				trace('got new target: '+enemy.id);
+			if (enemy.b2body != null) {
+				var enemyDistance = enemy.position.sub(position).length;
+				if (enemyDistance < closestEnemyDistance) {
+					closestEnemy = enemy;
+					closestEnemyDistance = enemyDistance;
+					trace('got new target: '+enemy.id);
+				}
 			}
 		}
 		return closestEnemy;

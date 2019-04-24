@@ -25,7 +25,7 @@ class LaserTurret extends Body {
 	private var cooldownTimer = 0.;
 	override public function update(dt, ?parentWorldMatrix) {
 		cooldownTimer += dt;
-		if (target == null || !target.isActive()) {
+		if (target == null || target.b2body == null || !target.isActive()) {
 			target = radar.getClosest();
 		}
 
@@ -36,7 +36,7 @@ class LaserTurret extends Body {
 	}
 
 	private function orient() {
-		if (target == null || !target.isActive()) {
+		if (target == null || target.b2body == null || !target.b2body.isActive()) {
 			gun.angle = Math.PI/2;
 		} else {
 			gun.angle = Math.PI - Math.atan2(target.position.y-position.y, position.x-target.position.x);
