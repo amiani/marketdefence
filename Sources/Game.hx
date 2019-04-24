@@ -78,7 +78,7 @@ class Game {
 		world.setContactListener(contactListener);
 
 		//background = new Background(Assets.images.goldstartile, width, height);
-		//market = new Market(scene, height, camera);
+		market = new Market(scene, height, camera);
 
 		earth = new Earth(12, scene, world);
 		invaderLayer = new Node(scene);

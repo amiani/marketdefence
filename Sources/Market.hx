@@ -18,7 +18,6 @@ class Market extends Node {
 		super(parent);
 		this.camera = camera;
 		this.height = height;
-		position.setFrom(new FastVector2(0, height));
 		main = ComponentMacros.buildComponent('../Assets/ui/market.xml', Vbox);
 		var button:Button = main.findComponent('testButton', Button);
 		button.onClick = (e:UIEvent) -> trace('hello');
@@ -26,7 +25,9 @@ class Market extends Node {
 	}
 
 	override public function draw(g:Graphics) {
-		g.pushTransformation(g.transformation.multmat(worldMatrix));
+		g.pushTransformation(g.transformation
+			.multmat(worldMatrix)
+			.multmat(FastMatrix3.scale(1/Game.worldScale, -1/Game.worldScale)));
 		main.renderTo(g);
 		g.popTransformation();
 		super.draw(g);
