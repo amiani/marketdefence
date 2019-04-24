@@ -9,23 +9,33 @@ class ContactListener extends B2ContactListener {
 	private var world : B2World;
 	private var bodiesToRemove : Array<Body>;
 
-	public function new(world:B2World, bodiesToRemove:Array<Body>) {
+	public function new(world:B2World) {
 		super();
 		this.world = world;
-		this.bodiesToRemove = bodiesToRemove;
-		initializeContactMap();
+		initializeContactMaps();
 	}
 
-	private var contactMap : StringMap<Body->Body->Void>;
+	private var contactBeginMap : StringMap<Body->Body->Void>;
+	private var contactEndMap : StringMap<Body->Body->Void>;
 	var bodyNames = ['Invader', 'LaserTurret', 'Earth', 'Radar'];
-	private function initializeContactMap() {
-		contactMap = new StringMap<Body->Body->Void>();
-		contactMap.set('InvaderLaserTurret', invaderTurretBegin);
-		contactMap.set('LaserTurretInvader', (t, i) -> invaderTurretBegin(i, t));
-		contactMap.set('InvaderEarth', invaderEarthBegin);
-		contactMap.set('EarthInvader', (e, i) -> invaderEarthBegin(i, e));
-		contactMap.set('InvaderRadar', invaderRadarBegin);
-		contactMap.set('RadarInvader', (r, i) -> invaderRadarBegin(i, r));
+	private function initializeContactMaps() {
+		contactBeginMap = new StringMap<Body->Body->Void>();
+		contactBeginMap.set('InvaderLaserTurret', invaderTurretBegin);
+		contactBeginMap.set('LaserTurretInvader', (t, i) -> invaderTurretBegin(i, t));
+		contactBeginMap.set('InvaderEarth', invaderEarthBegin);
+		contactBeginMap.set('EarthInvader', (e, i) -> invaderEarthBegin(i, e));
+		contactBeginMap.set('InvaderRadar', invaderRadarBegin);
+		contactBeginMap.set('RadarInvader', (r, i) -> invaderRadarBegin(i, r));
+
+		contactEndMap = new StringMap<Body->Body->Void>();
+		/*
+		contactEndMap.set('InvaderLaserTurret', invaderTurretEnd);
+		contactEndMap.set('LaserTurretInvader', (t, i) -> invaderTurretEnd(i, t));
+		contactEndMap.set('InvaderEarth', invaderEarthEnd);
+		contactEndMap.set('EarthInvader', (e, i) -> invaderEarthEnd(i, e));
+		*/
+		contactEndMap.set('InvaderRadar', invaderRadarEnd);
+		contactEndMap.set('RadarInvader', (r, i) -> invaderRadarEnd(i, r));
 	}
 
 	override public function beginContact(contact:B2Contact) {
@@ -36,7 +46,7 @@ class ContactListener extends B2ContactListener {
 			var parentB = fixtureB.getUserData();
 			var nameA = Type.getClassName(Type.getClass(parentA));
 			var nameB = Type.getClassName(Type.getClass(parentB));
-			var contactHandler = contactMap.get(nameA+nameB);
+			var contactHandler = contactBeginMap.get(nameA+nameB);
 			if (contactHandler != null)
 				contactHandler(parentA, parentB);
 			else
@@ -45,16 +55,19 @@ class ContactListener extends B2ContactListener {
 	}
 
 	override public function endContact(contact:B2Contact) {
-		/*
 		var fixtureA = contact.getFixtureA();
-		var fixtureB = contact.getFixtureA();
+		var fixtureB = contact.getFixtureB();
 		if (fixtureA != null && fixtureB != null) {
-			var handlersA = fixtureA.getUserData();
-			var handlersB = fixtureB.getUserData();
-			handlersA.handleEndContact(fixtureB);
-			handlersB.handleEndContact(fixtureA);
+			var parentA = fixtureA.getUserData();
+			var parentB = fixtureB.getUserData();
+			var nameA = Type.getClassName(Type.getClass(parentA));
+			var nameB = Type.getClassName(Type.getClass(parentB));
+			var contactHandler = contactEndMap.get(nameA+nameB);
+			if (contactHandler != null)
+				contactHandler(parentA, parentB);
+			else
+				unknownCollision(parentA, parentB);
 		}
-		*/
 	}
 
 	private function invaderTurretBegin(invader:Body, turret:Body) {
@@ -62,12 +75,16 @@ class ContactListener extends B2ContactListener {
 	}
 
 	private function invaderEarthBegin(invader:Body, earth:Body) {
-		bodiesToRemove.push(invader);
+		invader.remove();
 		//TODO: lose health
 	}
 
 	private function invaderRadarBegin(invader:Body, radar:Body) {
 		cast(radar, Radar).detectedEnemies.set(invader.id, invader);
+	}
+
+	private function invaderRadarEnd(invader:Body, radar:Body) {
+		cast(radar, Radar).detectedEnemies.remove(invader.id);
 	}
 
 	private function unknownCollision(bodyA:Body, bodyB:Body) {
