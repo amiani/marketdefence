@@ -3,6 +3,9 @@
 	<resources>
 		<resource path='../Assets/ui/css' />
 	</resources>
+	<components>
+		<class name="Auction" />
+	</components>
 	<themes>
 		<default>
 			<style resource='styles.css' />

@@ -3,5 +3,5 @@
 	<box width='100%' height='50px' id='playerBar'>
 		<label id='playerCredits' text='Credits: 100'/>
 	</box>
-	<import resource='../Assets/ui/auction.xml' />
+	<auction />
 </vbox>

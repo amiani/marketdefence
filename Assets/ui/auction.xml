@@ -1,4 +1,4 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<auction id='mainContainer' width='33%' height='50px'>
-	<button id='buy' text='Buy Laser Turret' />
-</auction>
+<hbox id='mainContainer' width='33%' height='50px'>
+	<button id='buy-button' text='Buy Laser Turret' />
+</hbox>

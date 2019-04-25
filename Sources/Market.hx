@@ -20,9 +20,7 @@ class Market extends Node {
 		this.camera = camera;
 		this.height = height;
 		main = ComponentMacros.buildComponent('../Assets/ui/market.xml', Vbox);
-		var button:Button = main.findComponent('laserTurret', Button);
 		creditsLabel = main.findComponent('playerCredits', Label);
-		button.onClick = (e:UIEvent) -> trace('hello');
 		main.ready();
 	}
 
