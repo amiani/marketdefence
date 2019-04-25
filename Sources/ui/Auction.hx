@@ -15,10 +15,4 @@ class Auction extends Component {
 	public function new() {
 		super();
 	}
-
-	public var onBuy(default, set) : UIEvent->Void;
-	private function set_onBuy(handler:UIEvent->Void) {
-		buyButton.onClick = handler;
-		return handler;
-	}
 }
