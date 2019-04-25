@@ -23,8 +23,7 @@ class Market extends Node {
 		this.height = height;
 		main = ComponentMacros.buildComponent('../Assets/ui/market.xml', Vbox);
 		creditsLabel = main.findComponent('playerCredits', Label);
-		var auction = new Auction();
-		auction.onBuy = handleBuy;
+		var auction = Auction.make({ handleBuy: handleBuy });
 		main.addComponent(auction);
 		main.ready();
 	}

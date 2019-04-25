@@ -3,5 +3,4 @@
 	<box width='100%' height='50px' id='playerBar'>
 		<label id='playerCredits' text='Credits: 100'/>
 	</box>
-	<auction />
 </vbox>
