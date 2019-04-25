@@ -1,3 +1,5 @@
+package ui;
+
 import haxe.ui.core.Component;
 import haxe.ui.core.UIEvent;
 import haxe.ui.components.Button;
@@ -6,7 +8,11 @@ import haxe.ui.components.Button;
 class Auction extends Component {
 	public function new() {
 		super();
-		buyButton.onClick = e->trace('hello');
-		//this.handleBuy = handleBuy;
+	}
+
+	public var onBuy(default, set) : UIEvent->Void;
+	private function set_onBuy(handler:UIEvent->Void) {
+		buyButton.onClick = handler;
+		return handler;
 	}
 }

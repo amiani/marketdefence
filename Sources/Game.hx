@@ -59,7 +59,7 @@ class Game {
 	public static var bodiesToRemove = new Array<B2Body>();
 	var contactListener : ContactListener;
 	var background : Background;
-	var market : Market;
+	var market : ui.Market;
 	var scene = new Node(null);
 	var earth : Earth;
 	var invaderLayer : Node;
@@ -76,7 +76,7 @@ class Game {
 		world.setContactListener(contactListener);
 
 		//background = new Background(Assets.images.goldstartile, width, height);
-		market = new Market(scene, height, camera);
+		market = new ui.Market(scene, height, camera);
 
 		earth = new Earth(12, scene, world);
 		invaderLayer = new Node(scene);

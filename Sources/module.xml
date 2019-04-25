@@ -4,7 +4,7 @@
 		<resource path='../Assets/ui/css' />
 	</resources>
 	<components>
-		<class name="Auction" />
+		<class name="ui.Auction" />
 	</components>
 	<themes>
 		<default>

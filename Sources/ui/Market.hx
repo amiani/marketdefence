@@ -1,3 +1,5 @@
+package ui;
+
 import haxe.ui.Toolkit;
 import haxe.ui.components.Button;
 import haxe.ui.components.Label;
@@ -21,6 +23,9 @@ class Market extends Node {
 		this.height = height;
 		main = ComponentMacros.buildComponent('../Assets/ui/market.xml', Vbox);
 		creditsLabel = main.findComponent('playerCredits', Label);
+		var auction = new Auction();
+		auction.onBuy = handleBuy;
+		main.addComponent(auction);
 		main.ready();
 	}
 
