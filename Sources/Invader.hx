@@ -12,9 +12,9 @@ class Invader extends Body {
 
 	public function new(position:FastVector2, parent:Node, world:B2World) {
 		super(position, parent, world, DYNAMIC_BODY);
-		sprite = new Sprite(Assets.images.invadera, 64, 64, this);
+		sprite = new Sprite(Assets.images.invadera, 64, 64, 0, 0, Math.PI/2, this);
 		healthBar = new HealthBar(new FastVector2(-.5, .5), 3, this);
-		angle = Math.PI;
+		angle = -Math.PI/2;
 		var fixtureDef = new B2FixtureDef();
 		fixtureDef.shape = B2PolygonShape.asBox(.5, .5);
 		fixtureDef.friction = .3;
@@ -26,7 +26,7 @@ class Invader extends Body {
 	override public function update(dt:Float, ?parentWorldMatrix) {
 		super.update(dt, parentWorldMatrix);
 		if (healthBar.health > 0) {
-			b2body.applyForce(b2body.getWorldVector(new B2Vec2(0, 1)), b2body.getWorldCenter());
+			b2body.applyForce(b2body.getWorldVector(new B2Vec2(1, 0)), b2body.getWorldCenter());
 		} else {
 			remove();
 		}
