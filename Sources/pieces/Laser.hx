@@ -1,3 +1,5 @@
+package pieces;
+
 import kha.math.FastVector2;
 import kha.FastFloat;
 import kha.graphics2.Graphics;

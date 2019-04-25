@@ -1,3 +1,5 @@
+package pieces;
+
 import kha.math.FastVector2;
 import kha.math.FastMatrix3;
 
@@ -20,6 +22,7 @@ class HealthBar extends Node {
 			var translation = FastMatrix3.identity();
 			translation._20 = parentWorldMatrix._20;
 			translation._21 = parentWorldMatrix._21;
+			//TODO: extract scaling
 			worldMatrix = translation.multmat(localMatrix);
 		}
 		for (child in children) {

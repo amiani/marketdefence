@@ -5,6 +5,10 @@ import kha.math.FastVector2;
 import box2D.dynamics.B2World;
 import box2D.dynamics.B2Body;
 import box2D.common.math.B2Vec2;
+import pieces.Earth;
+import pieces.Invader;
+import pieces.Spawner;
+import pieces.LaserTurret;
 
 enum GameState {
 	Stopped;

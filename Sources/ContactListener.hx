@@ -4,6 +4,7 @@ import box2D.dynamics.B2Fixture;
 import box2D.dynamics.B2World;
 import haxe.rtti.Rtti;
 import haxe.ds.StringMap;
+import pieces.*;
 
 class ContactListener extends B2ContactListener {
 	private var world : B2World;

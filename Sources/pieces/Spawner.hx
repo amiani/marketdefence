@@ -1,3 +1,5 @@
+package pieces;
+
 import kha.math.FastVector2;
 import kha.math.FastMatrix3;
 import haxe.Constraints.Constructible;
