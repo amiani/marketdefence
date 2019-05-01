@@ -40,6 +40,7 @@ class ContactListener extends B2ContactListener {
 		contactEndMap.set('RadarInvader', (r, i) -> invaderRadarEnd(i, r));
 	}
 
+	private var r = ~/(\w+\.)*(\w+)/g;
 	override public function beginContact(contact:B2Contact) {
 		var fixtureA = contact.getFixtureA();
 		var fixtureB = contact.getFixtureB();
@@ -48,6 +49,10 @@ class ContactListener extends B2ContactListener {
 			var parentB = fixtureB.getUserData();
 			var nameA = Type.getClassName(Type.getClass(parentA));
 			var nameB = Type.getClassName(Type.getClass(parentB));
+			r.match(nameA);
+			nameA = r.matched(2);
+			r.match(nameB);
+			nameB = r.matched(2);
 			var contactHandler = contactBeginMap.get(nameA+nameB);
 			if (contactHandler != null)
 				contactHandler(parentA, parentB);
@@ -64,6 +69,10 @@ class ContactListener extends B2ContactListener {
 			var parentB = fixtureB.getUserData();
 			var nameA = Type.getClassName(Type.getClass(parentA));
 			var nameB = Type.getClassName(Type.getClass(parentB));
+			r.match(nameA);
+			nameA = r.matched(2);
+			r.match(nameB);
+			nameB = r.matched(2);
 			var contactHandler = contactEndMap.get(nameA+nameB);
 			if (contactHandler != null)
 				contactHandler(parentA, parentB);
@@ -82,10 +91,12 @@ class ContactListener extends B2ContactListener {
 	}
 
 	private function invaderRadarBegin(invader:Body, radar:Body) {
+		trace('invaderRadarBegin');
 		cast(radar, Radar).detectedEnemies.set(invader.id, invader);
 	}
 
 	private function invaderRadarEnd(invader:Body, radar:Body) {
+		trace('invaderRadarEnd');
 		cast(radar, Radar).detectedEnemies.remove(invader.id);
 	}
 
