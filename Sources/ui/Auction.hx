@@ -12,7 +12,5 @@ class Auction extends Component {
 		return auction;
 	}
 
-	public function new() {
-		super();
-	}
+	public function new() super();
 }

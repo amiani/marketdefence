@@ -16,11 +16,13 @@ class Market extends Node {
 	private var main : Component;
 	private var camera : Camera;
 	private var height : Int;
+	private var onBuy : String->Void;
 
-	public function new(parent:Node, height:Int, camera:Camera) {
+	public function new(parent:Node, height:Int, onBuy, camera:Camera) {
 		super(parent);
 		this.camera = camera;
 		this.height = height;
+		this.onBuy = onBuy;
 		main = ComponentMacros.buildComponent('../Assets/ui/market.xml', Vbox);
 		creditsLabel = main.findComponent('playerCredits', Label);
 		var auction = Auction.make({ handleBuy: handleBuy });
@@ -46,6 +48,6 @@ class Market extends Node {
 	public var playerCredits(default, null) = 120;
 
 	private function handleBuy(e:UIEvent) {
-		trace('definitely a buy');
+		onBuy('LaserTurret');
 	}
 }

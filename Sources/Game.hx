@@ -80,11 +80,25 @@ class Game {
 		world.setContactListener(contactListener);
 
 		//background = new Background(Assets.images.goldstartile, width, height);
-		market = new ui.Market(scene, height, camera);
+		market = new ui.Market(scene, height, onBuy, camera);
 
 		earth = new Earth(12, scene, world);
 		invaderLayer = new Node(scene);
 		spawner = new Spawner<Invader>(new FastVector2(4, 17), invaderLayer, world, invaderLayer);
 		laserTurret = new LaserTurret(new FastVector2(12/2, 0), scene, world);
+	}
+	
+	@:isVar private var turretOffset(get, null) = 0;
+	private function get_turretOffset():Int {
+		turretOffset++;
+		return Std.int(Math.pow(-1, turretOffset)*Math.ceil(turretOffset/2));
+	}
+
+	private function onBuy(e:String) {
+		switch(e) {
+			case 'LaserTurret':
+				new LaserTurret(new FastVector2(6+turretOffset, 0), scene, world);
+			default:
+		}
 	}
 }
